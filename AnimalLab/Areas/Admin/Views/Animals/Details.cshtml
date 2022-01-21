@@ -1,0 +1,58 @@
+﻿@model DataLayer.Animal
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Animal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Animal_FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Animal_FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Animal_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Animal_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnimalType.AnimalType_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnimalType.AnimalType_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Person_FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.Person_FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TestType.TestType_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestType.TestType_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AnimalId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

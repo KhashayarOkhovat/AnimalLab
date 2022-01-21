@@ -1,0 +1,107 @@
+﻿@model IEnumerable<DataLayer.Person>
+
+@{
+    ViewBag.Title = "Index";
+    
+}
+
+<h2>Index</h2>
+
+<p>
+    <a class="btn btn-success" id="btnNewPerson">افزودن شخص</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Person_FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Person_LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Person_PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role.Role_Type)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person_FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person_LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person_PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.Role_Type)
+            </td>
+            <td>
+                <a class="btn btn-sm btn-warning" onclick="editPerson(@item.PersonId)">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>
+                <a class="btn btn-sm btn-danger" onclick="deletePerson(@item.PersonId)">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Modal -->
+
+@section scripts
+{
+
+    <script src="~/Scripts/modal.js"></script>
+    <script>
+        $("#btnNewPerson").click(function () {
+
+            $.get("/Admin/person/Create", function (result) {
+
+                $("#myModal").modal();
+                $("#myModalLabel").html("افزودن شخص");
+                $("#myModalBody").html(result);
+            });
+
+        });
+
+        function editPerson(id) {
+            $.get("/Admin/person/Edit/" + id, function (result) {
+                $("#myModal").modal();
+                $("#myModalLabel").html("ویرایش شخص");
+                $("#myModalBody").html(result);
+            });
+        }
+
+
+        function deletePerson(id) {
+            $.get("/Admin/person/Delete/" + id, function (result) {
+                $("#myModal").modal();
+                $("#myModalLabel").html("حذف شخص");
+                $("#myModalBody").html(result);
+            });
+        }
+
+    </script>
+}
